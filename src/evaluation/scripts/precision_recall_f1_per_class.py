@@ -10,8 +10,6 @@ OUTPUT_DIR = PROJECT_ROOT / "src" / "evaluation" / "outputs"
 FIGURE_DIR = PROJECT_ROOT / "figures"
 
 def plot_prec_recall_f1_p_class():
-    
-    prepare_dir(FIGURE_DIR)
 
     y_true = np.load(OUTPUT_DIR / "y_true.npy")
     y_pred = np.load(OUTPUT_DIR / "y_pred.npy")
@@ -47,10 +45,5 @@ def plot_prec_recall_f1_p_class():
 
     plt.savefig(FIGURE_DIR / "prec_recall_f1_per_class.png", dpi=300)
 
-
-def prepare_dir(dir_path: Path):
-    if dir_path.exists():
-        shutil.rmtree(dir_path)
-    dir_path.mkdir(parents=True)
 
 

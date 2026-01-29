@@ -3,7 +3,18 @@ from evaluation.scripts.epoch_curves import plot_epoch_curves
 from evaluation.scripts.precision_recall_f1_per_class import plot_prec_recall_f1_p_class
 from evaluation.scripts.confusion_matrix import plot_confusion_matrix
 
+import shutil
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+dir_path = PROJECT_ROOT / "figures"
+
 def main():
+
+    if dir_path.exists():
+        shutil.rmtree(dir_path)
+    dir_path.mkdir(parents=True)
 
     calculate_inference(MODEL_PATH = "models/model1_v0.pth")
     print(f"[INFO] Inference calculated.")
