@@ -8,6 +8,7 @@ scikit-learn
 seaborn
 pillow
 black
+pandas
 #imports for preprocess:
 mtcnn
 insightface
