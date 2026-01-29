@@ -10,7 +10,7 @@ parameters = {"Anger":      (["S", "HL", "HR"], 0),
               "Fear":       (["S", "HL", "HR"], 1.0),
               "Happiness":  (["S", "HL", "HR"], 0),
               "Sadness":    (["S", "HL", "HR"], 0),
-              "Surprise":   (["S"], 1.0),
+              "Surprise":   (["S"], 0),
               }
 
 def main():
