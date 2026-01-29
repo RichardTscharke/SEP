@@ -1,5 +1,6 @@
 import os
 import torch
+import shutil
 import numpy as np
 from pathlib import Path
 from torch.utils.data import DataLoader
@@ -10,13 +11,14 @@ from models.model1.model1 import Model1
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE_DIR / "outputs"
-OUTPUT_DIR.mkdir(exist_ok=True)
 
 TEST_DIR = "data/RAF_aligned_processed/test"
 BATCH_SIZE = 64
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def calculate_inference(MODEL_PATH = "models/model1_v0.pth"):
+
+    prepare_output_dir(OUTPUT_DIR)
 
     transform = transforms.Compose([
         transforms.Resize((64, 64)),
@@ -56,4 +58,11 @@ def calculate_inference(MODEL_PATH = "models/model1_v0.pth"):
     print(f" - {OUTPUT_DIR / 'y_pred.npy'}")
     print(f" - {OUTPUT_DIR / 'y_true.npy'}")
     print(f" - {OUTPUT_DIR / 'class_names.npy'}")
+
+
+def prepare_output_dir(output_dir: Path):
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir(parents=True)
+
 

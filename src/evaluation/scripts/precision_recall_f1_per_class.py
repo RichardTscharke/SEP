@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,7 +10,8 @@ OUTPUT_DIR = PROJECT_ROOT / "src" / "evaluation" / "outputs"
 FIGURE_DIR = PROJECT_ROOT / "figures"
 
 def plot_prec_recall_f1_p_class():
-    FIGURE_DIR.mkdir(parents=True, exist_ok=True)
+    
+    prepare_dir(FIGURE_DIR)
 
     y_true = np.load(OUTPUT_DIR / "y_true.npy")
     y_pred = np.load(OUTPUT_DIR / "y_pred.npy")
@@ -30,7 +32,7 @@ def plot_prec_recall_f1_p_class():
     bars3 = ax.bar(x + width, f1, width, label='F1 Score')
 
     ax.set_ylabel('Score')
-    ax.set_title('Precision,Recall & F1 per class')
+    ax.set_title('Precision, Recall & F1 per class')
     ax.set_xticks(x)
     ax.set_xticklabels(class_names)
     ax.set_ylim(0, 1)
@@ -43,5 +45,12 @@ def plot_prec_recall_f1_p_class():
                         xytext=(0, 3), textcoords="offset points",
                         ha='center', va='bottom')
 
-    plt.savefig(FIGURE_DIR / "learning_rate_curve.png", dpi=300)
+    plt.savefig(FIGURE_DIR / "prec_recall_f1_per_class.png", dpi=300)
+
+
+def prepare_dir(dir_path: Path):
+    if dir_path.exists():
+        shutil.rmtree(dir_path)
+    dir_path.mkdir(parents=True)
+
 
