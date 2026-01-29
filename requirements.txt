@@ -1,0 +1,18 @@
+#imports for CNN:
+torch
+torchvision
+pandas
+numpy
+matplotlib
+scikit-learn
+seaborn
+pillow
+black
+#imports for preprocess:
+mtcnn
+insightface
+onnxruntime-gpu
+tqdm
+Pillow
+opencv-python
+tensorflow # moved here because python version issue with tensorflow
