@@ -1,7 +1,8 @@
 import csv
-
+import shutil
 import torch
 import torch.nn as nn
+from pathlib import Path
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
@@ -10,6 +11,13 @@ import os
 # importing the custom model
 from models.model1.model1 import Model1
 
+# OUTPU_DIR for evaluation
+OUTPUT_DIR = Path("src/evaluation/outputs")
+
+def prepare_output_dir_evaluation():
+    if OUTPUT_DIR.exists():
+        shutil.rmtree(OUTPUT_DIR)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 #  HARDWARE CHECK
 def get_device():
@@ -43,7 +51,7 @@ MODEL_DIR = "models"
 # generate unique model save path
 def get_unique_model_path(base_name="model1"):
 
-    # Find the next available model save path: raf_cnn_v0.pth, raf_cnn_v1.pth, etc.
+    # Find the next available model save path: model1_v0.pth, model1_v1.pth, etc.
     if not os.path.exists(MODEL_DIR):
         os.makedirs(MODEL_DIR)
 
@@ -89,6 +97,10 @@ def validate(model, loader, criterion):
 
 # MAIN
 def main():
+
+    # 0. prepare evaluation outputs directory
+    prepare_output_dir_evaluation()
+
     # 1. model save path
     save_path, version_id = get_unique_model_path()
     print("=" * 50)

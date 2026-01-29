@@ -18,7 +18,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def calculate_inference(MODEL_PATH = "models/model1_v0.pth"):
 
-    prepare_output_dir(OUTPUT_DIR)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     transform = transforms.Compose([
         transforms.Resize((64, 64)),
@@ -58,11 +58,5 @@ def calculate_inference(MODEL_PATH = "models/model1_v0.pth"):
     print(f" - {OUTPUT_DIR / 'y_pred.npy'}")
     print(f" - {OUTPUT_DIR / 'y_true.npy'}")
     print(f" - {OUTPUT_DIR / 'class_names.npy'}")
-
-
-def prepare_output_dir(output_dir: Path):
-    if output_dir.exists():
-        shutil.rmtree(output_dir)
-    output_dir.mkdir(parents=True)
 
 
